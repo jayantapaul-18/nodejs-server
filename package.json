@@ -1,0 +1,28 @@
+{
+  "name": "vs-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayantapaul-18/nodejs-server.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Express",
+    "API"
+  ],
+  "author": "Jayanta Paul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayantapaul-18/nodejs-server/issues"
+  },
+  "homepage": "https://github.com/jayantapaul-18/nodejs-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
