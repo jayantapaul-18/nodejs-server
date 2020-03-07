@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+const os = require('os');
 const api = require('./api');
 //server.use(api,api);
 server.use('*',function(request,response,next){
@@ -8,13 +9,24 @@ server.use('*',function(request,response,next){
     next()
 })
 server.get('/app/healthcheck',function(request,response){
-    response.send({"Status":"Server Up & running"});
+    var health = {
+        "status":"up",
+        "uptime":process.uptime(),
+        "cpu":os.cpus()[0],
+        "platform":os.platform(),
+        "freemem":os.freemem(),
+        "networkInterfaces":os.networkInterfaces()
+    }
+    response.send(health);
 })
 
 server.all('/app/name',function(request,response){
+    var hostName =os.hostname();
     const Body = {
-        "id": "12345",
-        "name":"yourname"
+        "server": process.versions.node,
+        "device":"RaspberryPi3B+",
+        "hostName":hostName,
+        "osType":os.type()
     }
     response.send(Body);
 })
