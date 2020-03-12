@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.3",
     "level": "^6.0.1",
+    "serialport": "^8.0.7",
     "winston": "^3.2.1"
   }
 }

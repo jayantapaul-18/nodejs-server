@@ -7,6 +7,9 @@ const helmet = require('helmet');
 const level = require('level');
 const api = require('./api');
 //app.use(api,api);
+const SerialPort = require('serialport');
+const Readline = SerialPort.parsers.Readline;
+const listDevice = [];
 const SERVER_PORT = 3005;
 const winston = require('winston');
 const logger = winston.createLogger({
@@ -55,6 +58,63 @@ app.use(function(err, req, res, next) {
 	}
 	res.status(statusCode).json(data);
 });
+
+function listPorts() {
+    SerialPort.list().then(
+     ports => {
+      ports.forEach(port => {
+       console.log(`${port.path}`);
+       listDevice.push(port.path);
+      })
+     },
+     err => {
+      console.error('Error listing ports', err)
+     }
+    )
+   }
+
+   listPorts()
+   const DevicesConnected = []
+   let listDevicesConnected = () => SerialPort.list().then(ports => ports.forEach(port => DevicesConnected.push(port.path) )) 
+   listDevicesConnected();
+
+app.get('/app/listDevices', (req , res ) => {
+    res.send(listDevice);   
+    res.end(); 
+})
+
+const device = '/dev/ttyACM0';  // ls -lha /dev/tty*
+const serialPort = new SerialPort(device, function (err) {
+    if (err) {
+      return console.log(err.message)
+    }
+    else{
+        console.log('Serial communication is ON with ',device);
+    }
+    baudRate: 57600
+  })
+  
+const parser = new Readline()
+serialPort.pipe(parser)
+const lineStream = serialPort.pipe(new Readline())
+
+app.get('/', (req , res ) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+})
+
+app.get('/app/test', (req , res ) => {
+        var serialData = JSON.stringify(lineStream._readableState.buffer.head.data);
+        console.log(JSON.stringify(lineStream._readableState.buffer.head.data));
+        console.log({"text":serialData});
+        res.send(serialData);   
+        res.end(); 
+})
+
+app.get('/app/data', (req , res ) => {
+    var gpsData = {'text':'Data send from test API !'}
+        res.send(gpsData);   
+        res.end(); 
+})
 
 app.all(routes.hc,(req,res)=>{
     var health = {
