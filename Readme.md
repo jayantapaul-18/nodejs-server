@@ -1,6 +1,6 @@
 # nodejs-server
 
-Nodejs server basic setup helps to start up the express
+Nodejs server basic setup helps to start up the express js . In this project we added all the API & cool functionality that support RaspberryPi . 
 ## Installation
 
 Clone the project and run the node install
