@@ -7,6 +7,9 @@ const helmet = require('helmet');
 const level = require('level');
 const api = require('./api');
 //app.use(api,api);
+const fs = require('fs');
+const { StillCamera } = require("pi-camera-connect");
+const stillCamera = new StillCamera();
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
 const listDevice = [];
@@ -102,6 +105,14 @@ app.get('/', (req , res ) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 })
 
+app.get('/app/imag/:id', (req , res ) => {
+stillCamera.takeImage().then(image => {
+    fs.writeFileSync("1.jpg", image);
+});
+res.writeHead(200,{'content-type':'image/jpg'});
+fs.createReadStream('./1.jpg').pipe(res);
+})
+
 app.get('/app/test', (req , res ) => {
         var serialData = JSON.stringify(lineStream._readableState.buffer.head.data);
         console.log(JSON.stringify(lineStream._readableState.buffer.head.data));
@@ -110,10 +121,23 @@ app.get('/app/test', (req , res ) => {
         res.end(); 
 })
 
-app.get('/app/data', (req , res ) => {
-    var gpsData = {'text':'Data send from test API !'}
-        res.send(gpsData);   
-        res.end(); 
+app.get('/dev/:deviceid', (req , res ) => {
+    var deviceid = req.params.deviceid;
+    var serialPort = new SerialPort(deviceid, function (err) {
+        if (err) {
+          return console.log(err.message)
+        }
+        else{
+            console.log('Serial communication is ON with ',deviceid);
+        }
+        baudRate: 57600
+      })
+      var parser = new Readline()
+      serialPort.pipe(parser)
+      var lineStream = serialPort.pipe(new Readline())
+      var serialData = JSON.stringify(lineStream._readableState.buffer.head.data);
+    res.send(serialData);   
+    res.end(); 
 })
 
 app.all(routes.hc,(req,res)=>{
