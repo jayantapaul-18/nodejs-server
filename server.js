@@ -37,6 +37,7 @@ const logger = winston.createLogger({
     }));
   }
 
+const { exec } = require('child_process');
 var routes = require("./routes").routes;
 app.use(helmet())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -104,6 +105,19 @@ const lineStream = serialPort.pipe(new Readline())
 app.get('/', (req , res ) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 })
+
+app.get('/app/deviceTemp', (req , res ) => {
+
+exec('/opt/vc/bin/vcgencmd measure_temp', (error, stdout, stderr) => {
+  if (error) {
+    console.error(`exec error: ${error}`);
+    return;
+  }
+  console.error(`stderr: ${stderr}`);
+  res.send(stdout);   
+  res.end(); 
+})
+});
 
 app.get('/app/imag/:id', (req , res ) => {
 stillCamera.takeImage().then(image => {
