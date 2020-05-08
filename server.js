@@ -42,6 +42,7 @@ var routes = require("./routes").routes;
 app.use(helmet())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(bodyParser.text())
 
 app.use('*',(req,res,next)=>{
     res.header('supper-server','supper-server');
@@ -164,6 +165,14 @@ app.all(routes.hc,(req,res)=>{
         "networkInterfaces":os.networkInterfaces()
     }
     res.send(health);
+})
+
+app.all(routes.healthz,(req,res)=>{
+  var status = {
+      "status":"healthy",
+      "uptime":process.uptime()
+  }
+  res.send(status);
 })
 
 app.all('/app/name',(req,res)=>{
