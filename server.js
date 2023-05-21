@@ -80,12 +80,12 @@ function listPorts() {
 
    listPorts()
    const DevicesConnected = []
-   let listDevicesConnected = () => SerialPort.list().then(ports => ports.forEach(port => DevicesConnected.push(port.path) )) 
+   let listDevicesConnected = () => SerialPort.list().then(ports => ports.forEach(port => DevicesConnected.push(port.path) ))
    listDevicesConnected();
 
 app.get('/app/listDevices', (req , res ) => {
-    res.send(listDevice);   
-    res.end(); 
+    res.send(listDevice);
+    res.end();
 })
 
 const device = '/dev/ttyACM0';  // ls -lha /dev/tty*
@@ -98,7 +98,7 @@ const serialPort = new SerialPort(device, function (err) {
     }
     baudRate: 57600
   })
-  
+
 const parser = new Readline()
 serialPort.pipe(parser)
 const lineStream = serialPort.pipe(new Readline())
@@ -115,8 +115,8 @@ exec('/opt/vc/bin/vcgencmd measure_temp', (error, stdout, stderr) => {
     return;
   }
   console.error(`stderr: ${stderr}`);
-  res.send(stdout);   
-  res.end(); 
+  res.send(stdout);
+  res.end();
 })
 });
 
@@ -132,8 +132,8 @@ app.get('/app/test', (req , res ) => {
         var serialData = JSON.stringify(lineStream._readableState.buffer.head.data);
         console.log(JSON.stringify(lineStream._readableState.buffer.head.data));
         console.log({"text":serialData});
-        res.send(serialData);   
-        res.end(); 
+        res.send(serialData);
+        res.end();
 })
 
 app.get('/dev/:deviceid', (req , res ) => {
@@ -151,8 +151,8 @@ app.get('/dev/:deviceid', (req , res ) => {
       serialPort.pipe(parser)
       var lineStream = serialPort.pipe(new Readline())
       var serialData = JSON.stringify(lineStream._readableState.buffer.head.data);
-    res.send(serialData);   
-    res.end(); 
+    res.send(serialData);
+    res.end();
 })
 
 app.all(routes.hc,(req,res)=>{
@@ -206,9 +206,9 @@ const db = level('my-db')
 
 db.put('name', 'Level', function (err) {
   if (err) return console.log('Ooops!', err)
- 
+
   db.get('name', function (err, value) {
-    if (err) return console.log('Ooops!', err) 
+    if (err) return console.log('Ooops!', err)
     console.log('name=' + value)
   })
 })
@@ -217,7 +217,7 @@ process.on('SIGINT', function() {
     console.log("Exit from Server");
     process.exit();
   })
-  
+
 process.on('SIGTERM', function() {
     console.log("Exit from Server");
     process.exit();
