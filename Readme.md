@@ -1,12 +1,12 @@
 # nodejs-server for RaspberryPi
 
-Nodejs server basic setup helps to start up the express js . In this project we added all the API & cool functionality that support RaspberryPi . 
+Nodejs server basic setup helps to start up the express js . In this project we added all the API & cool functionality that support RaspberryPi .
 
 # Major Functionality / API:
-1. GPS / SerialPort data 
+1. GPS / SerialPort data
 2. Healthcheck
 3. List of Serial Devices Connected
-4. Capture photo 
+4. Capture photo
 5. Measure Device Temperature
 
 ## Installation
