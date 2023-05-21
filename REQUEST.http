@@ -1,0 +1,17 @@
+GET localhost:3005/app/v1/healthz
+###
+GET localhost:3005/app/name
+###
+GET localhost:3005/app/listDevices
+###
+GET localhost:3005/app/deviceTemp
+###
+GET localhost:3005/app/imag/:id
+###
+GET localhost:3005/app/test
+###
+GET localhost:3005/dev/:deviceid
+###
+GET localhost:3005/app/process
+
+
