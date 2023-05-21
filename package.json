@@ -1,6 +1,6 @@
 {
-  "name": "vs-nodejs",
-  "version": "1.0.0",
+  "name": "nodejs-server",
+  "version": "1.0.1",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -23,14 +23,14 @@
   },
   "homepage": "https://github.com/jayantapaul-18/nodejs-server#readme",
   "dependencies": {
-    "axios": "^0.19.0",
-    "body-parser": "^1.19.0",
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "helmet": "^3.21.3",
-    "level": "^6.0.1",
-    "pi-camera-connect": "^0.3.0",
-    "serialport": "^8.0.7",
-    "winston": "^3.2.1"
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "level": "^8.0.0",
+    "pi-camera-connect": "^0.3.4",
+    "serialport": "^11.0.0",
+    "winston": "^3.8.2"
   }
 }
